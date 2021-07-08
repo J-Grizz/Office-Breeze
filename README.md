@@ -1,1 +1,1 @@
-# Scofholding for quick TS React setup
+# Specno Assessment
