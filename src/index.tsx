@@ -5,16 +5,17 @@ import reportWebVitals from 'core/reportWebVitals'
 import { GlobalStyles, StyledLayout, theme } from 'Styles'
 import { ThemeProvider } from 'styled-components'
 import Routes from './routes'
-import { Header } from 'Components'
+import { AuthProvider } from 'Context'
 
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />
-			<StyledLayout>
-				<Header />
-				<Routes />
-			</StyledLayout>
+			<AuthProvider>
+				<StyledLayout>
+					<Routes />
+				</StyledLayout>
+			</AuthProvider>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
