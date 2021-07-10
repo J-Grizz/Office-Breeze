@@ -1,8 +1,9 @@
-import { FC, useEffect } from 'react'
+import { FC, useContext } from 'react'
 import { StyledModal } from './styles'
 import { useFormState } from 'Hooks'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
-import firebase, { firestore, auth } from 'firebase.config'
+import { OfficesContext } from 'Context'
+import { OfficeInterface } from 'Typings/office'
+import { Office } from 'Classes/office'
 
 interface OfficeFormProps {
 	isOpen: boolean
@@ -10,26 +11,13 @@ interface OfficeFormProps {
 }
 
 const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle }) => {
-	let initialValues = {
-		officeName: '',
-		officeEmail: '',
-		officeTel: '',
-		officeAddr: '',
-		officeMax: '',
-		officeColor: '',
-	}
+	let initialValues: OfficeInterface = new Office()
+	const { addOffice } = useContext(OfficesContext)
 	const [inputs, handleChange, reset] = useFormState(initialValues)
-	const officesRef = firestore.collection(`users/${auth.currentUser!.uid}/offices`)
-	const [OfficeData] = useCollectionData(officesRef, { idField: 'id' })
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-		console.log(
-			officesRef.add({
-				...inputs,
-				createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-			})
-		)
+		addOffice(inputs)
 		reset(e)
 	}
 

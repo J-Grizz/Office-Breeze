@@ -5,7 +5,7 @@ import reportWebVitals from 'core/reportWebVitals'
 import { GlobalStyles, StyledLayout, theme } from 'Styles'
 import { ThemeProvider } from 'styled-components'
 import Routes from './routes'
-import { AuthProvider } from 'Context'
+import { AuthProvider, OfficesProvider } from 'Context'
 import { ModalProvider } from 'styled-react-modal'
 
 ReactDOM.render(
@@ -13,11 +13,13 @@ ReactDOM.render(
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />
 			<AuthProvider>
-				<StyledLayout>
-					<ModalProvider>
-						<Routes />
-					</ModalProvider>
-				</StyledLayout>
+				<OfficesProvider>
+					<StyledLayout>
+						<ModalProvider>
+							<Routes />
+						</ModalProvider>
+					</StyledLayout>
+				</OfficesProvider>
 			</AuthProvider>
 		</ThemeProvider>
 	</React.StrictMode>,

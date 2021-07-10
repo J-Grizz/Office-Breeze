@@ -1,24 +1,24 @@
-// import { FC, createContext } from 'react'
-// import { useAuthState } from 'react-firebase-hooks/auth'
-// import { useCollectionData } from 'react-firebase-hooks/firestore'
-// import firebase, { firestore, auth } from 'firebase.config'
+import { FC, createContext, useContext } from 'react'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import firebase, { firestore } from 'firebase.config'
+import { AuthContext } from 'Context/auth.context'
 
-// const officesRef = firestore.collection(`users/${auth.currentUser!.uid}/offices`)
+export const OfficesContext = createContext<any>(null)
 
-// const onDataAdd = () => {
-// 	officesRef.add({
-// 		text: 'test',
-// 		createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-// 	})
-// }
+export const OfficesProvider: FC = ({ children }) => {
+	const { user, loading } = useContext(AuthContext)
+	let officesRef: any = null
+	if (!loading) {
+		officesRef = firestore.collection(`users/${user.uid}/offices`)
+	}
+	const [officeData] = useCollectionData(officesRef, { idField: 'id' })
 
-// export const OfficesContext = createContext<any>(null)
+	const addOffice = (officeData: any) => {
+		officesRef.add({
+			...officeData,
+			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+		})
+	}
 
-// export const OfficesProvider: FC = ({ children }) => {
-// 	const [OfficeData] = useCollectionData(officesRef, { idField: 'id' })
-
-// 	return <OfficesContext.Provider value={{ data: OfficeData }}>{children}</OfficesContext.Provider>
-// }
-
-export const OfficesContext = {}
-export const OfficesProvider = {}
+	return <OfficesContext.Provider value={{ offices: officeData, addOffice: addOffice }}>{children}</OfficesContext.Provider>
+}

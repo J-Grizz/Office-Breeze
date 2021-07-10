@@ -5,7 +5,7 @@ import { AuthContext } from 'Context/auth.context'
 
 const Home: FC = () => {
 	const { user } = useContext(AuthContext)
-
+	console.log('home compo:', user)
 	return (
 		<HomeLayout>
 			<HomeHeader />
