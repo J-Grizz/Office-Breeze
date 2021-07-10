@@ -1,4 +1,5 @@
 export interface OfficeInterface {
+	id?: string
 	officeName: string
 	officeEmail: string
 	officeTel: string

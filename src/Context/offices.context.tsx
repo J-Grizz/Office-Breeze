@@ -6,12 +6,12 @@ import { AuthContext } from 'Context/auth.context'
 export const OfficesContext = createContext<any>(null)
 
 export const OfficesProvider: FC = ({ children }) => {
-	const { user, loading } = useContext(AuthContext)
+	const { user } = useContext(AuthContext)
 	let officesRef: any = null
-	if (!loading) {
+	if (user) {
 		officesRef = firestore.collection(`users/${user.uid}/offices`)
 	}
-	const [officesData] = useCollectionData(officesRef, { idField: 'id' })
+	const [officesData, loading] = useCollectionData(officesRef, { idField: 'id' })
 
 	const addOffice = (officesData: any) => {
 		officesRef.add({
@@ -20,5 +20,5 @@ export const OfficesProvider: FC = ({ children }) => {
 		})
 	}
 
-	return <OfficesContext.Provider value={{ officesData: officesData, addOffice: addOffice }}>{children}</OfficesContext.Provider>
+	return <OfficesContext.Provider value={{ officesData: officesData, loading: loading, addOffice: addOffice }}>{children}</OfficesContext.Provider>
 }
