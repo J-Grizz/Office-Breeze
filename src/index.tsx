@@ -6,6 +6,7 @@ import { GlobalStyles, StyledLayout, theme } from 'Styles'
 import { ThemeProvider } from 'styled-components'
 import Routes from './routes'
 import { AuthProvider } from 'Context'
+import { ModalProvider } from 'styled-react-modal'
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.render(
 			<GlobalStyles />
 			<AuthProvider>
 				<StyledLayout>
-					<Routes />
+					<ModalProvider>
+						<Routes />
+					</ModalProvider>
 				</StyledLayout>
 			</AuthProvider>
 		</ThemeProvider>
