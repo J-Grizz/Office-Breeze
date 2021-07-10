@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { HomeLayout } from './styles'
+import { HomeHeader } from 'Components'
 // import { useAuthState } from 'react-firebase-hooks/auth'
 // import { useCollectionData } from 'react-firebase-hooks/firestore'
 // import firebase, { auth, firestore } from 'firebase.config'
@@ -19,10 +20,10 @@ const Home: FC = () => {
 	// 	})
 	// }
 	return (
-		<HomeLayout style={{ border: '3px solid green' }} className="main-container">
+		<HomeLayout>
+			<HomeHeader />
 			{/* {testData} */}
 			{/* <button onClick={onDataAdd}>Add Data</button> */}
-			<button onClick={signOut}>Sign out</button>
 		</HomeLayout>
 	)
 }

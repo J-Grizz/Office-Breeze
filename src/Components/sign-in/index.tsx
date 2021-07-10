@@ -13,7 +13,7 @@ const SignIn: FC = () => {
 	if (loading) {
 		return <LoadingSpinner />
 	} else if (user) {
-		return <Redirect to="/" />
+		return <Redirect to="/home" />
 	} else {
 		return (
 			<SignInLayout>

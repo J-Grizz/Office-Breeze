@@ -6,7 +6,6 @@ import { AuthContext } from 'Context/auth.context'
 
 const Routes: FC = () => {
 	const { user, loading } = useContext(AuthContext)
-	console.log(loading, user)
 	// TODO* Create interface
 	const defaultProtectedRouteProps = {
 		isLoading: loading,
@@ -18,7 +17,7 @@ const Routes: FC = () => {
 		<Router>
 			<Switch>
 				<Route exact path="/sign-in" component={SignIn} />
-				<ProtectedRoute {...defaultProtectedRouteProps} exact path="/" component={Home} />
+				<ProtectedRoute {...defaultProtectedRouteProps} exact path="/home" component={Home} />
 				<ProtectedRoute {...defaultProtectedRouteProps} path="*" component={Home} />
 			</Switch>
 		</Router>
