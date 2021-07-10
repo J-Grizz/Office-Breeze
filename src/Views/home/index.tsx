@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { HomeLayout } from './styles'
-import { useAuthState } from 'react-firebase-hooks/auth'
+// import { useAuthState } from 'react-firebase-hooks/auth'
 // import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { auth, firestore } from '../../firebase'
-import firebase from 'firebase'
+// import firebase, { auth, firestore } from 'firebase.config'
+import { auth } from 'firebase.config'
 
 const signOut = () => auth.signOut()
 

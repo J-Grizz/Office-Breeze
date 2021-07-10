@@ -3,12 +3,6 @@ import { device } from '.'
 
 export default createGlobalStyle`
   ${({ theme }) => css`
-		/* Initialize fonts: https://fonts.google.com/ */
-		@font-face {
-			font-family: 'Limelight';
-			src: local('Limelight'), url('Fonts/Limelight-Regular.ttf') format('truetype');
-		}
-
 		body {
 			margin: 0;
 		}
@@ -19,7 +13,7 @@ export default createGlobalStyle`
 		*:before,
 		*:after {
 			box-sizing: border-box;
-			font-family: LimeLight;
+			font-family: 'Open Sans', sans-serif;
 			outline: none;
 		}
 
@@ -32,7 +26,7 @@ export default createGlobalStyle`
 		h5,
 		h6 {
 			margin: 0;
-			font-family: LimeLight;
+			font-family: 'Open Sans', sans-serif;
 			color: ${theme.colors.white};
 		}
 
