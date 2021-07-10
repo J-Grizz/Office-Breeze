@@ -5,8 +5,14 @@ export default (initialVal: any) => {
 		setInputs((state: any) => ({ ...state, [e.target.name]: e.target.value }))
 	}
 	const reset = (e: any) => {
-		setInputs((state: any) => ({}))
-		e.preventDefault()
+		setInputs({
+			officeName: '',
+			officeEmail: '',
+			officeTel: '',
+			officeAddr: '',
+			officeMax: '',
+			officeColor: '',
+		})
 	}
 	return [inputs, handleChange, reset]
 }
