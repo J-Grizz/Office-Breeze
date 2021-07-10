@@ -1,15 +1,23 @@
 import { FC, useContext } from 'react'
 import { HomeLayout } from './styles'
 import { HomeHeader } from 'Components'
-import { AuthContext } from 'Context/auth.context'
+import { OfficesContext } from 'Context'
+import { OfficeInterface } from 'Typings/office'
 
 const Home: FC = () => {
-	const { user } = useContext(AuthContext)
-	console.log('home compo:', user)
+	const { officesData } = useContext(OfficesContext)
+
+	let offices = []
+	if (officesData) {
+		offices = officesData.map((office: OfficeInterface, index: number) => {
+			return <div>{office.officeName}</div>
+		})
+	}
+
 	return (
 		<HomeLayout>
 			<HomeHeader />
-			{/* {testData} */}
+			{offices}
 		</HomeLayout>
 	)
 }

@@ -11,14 +11,14 @@ export const OfficesProvider: FC = ({ children }) => {
 	if (!loading) {
 		officesRef = firestore.collection(`users/${user.uid}/offices`)
 	}
-	const [officeData] = useCollectionData(officesRef, { idField: 'id' })
+	const [officesData] = useCollectionData(officesRef, { idField: 'id' })
 
-	const addOffice = (officeData: any) => {
+	const addOffice = (officesData: any) => {
 		officesRef.add({
-			...officeData,
+			...officesData,
 			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 		})
 	}
 
-	return <OfficesContext.Provider value={{ offices: officeData, addOffice: addOffice }}>{children}</OfficesContext.Provider>
+	return <OfficesContext.Provider value={{ officesData: officesData, addOffice: addOffice }}>{children}</OfficesContext.Provider>
 }
