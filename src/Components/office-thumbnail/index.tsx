@@ -1,8 +1,17 @@
-import { FC, useState, useContext } from 'react'
-import { OfficeThumbnailContainer, UserCountContainer, PeopleIcon, ContentContainer, OptionsIcon } from './styles'
+import { FC } from 'react'
+import {
+	OfficeThumbnailContainer,
+	UserCountContainer,
+	PeopleIcon,
+	ContentContainer,
+	OptionsIcon,
+	ActionsContainer,
+	DeleteIcon,
+	EditIcon,
+} from './styles'
 import { OfficeInterface } from 'Typings/office'
-import { OfficeForm } from 'Components'
-import { OfficesContext } from 'Context'
+import { OfficeForm, DeleteModal } from 'Components'
+import { useToggleState } from 'Hooks'
 
 interface OfficeThumbnailProps {
 	officeData: OfficeInterface
@@ -10,12 +19,20 @@ interface OfficeThumbnailProps {
 
 const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 	const { officeMax, officeName, officeEmail, officeAddr, officeTel, id } = officeData
-	const [iEditsModalOpen, setIEditsModalOpen] = useState(false)
-	const { deleteOffice } = useContext(OfficesContext)
+	const [isEditModalOpen, toggleEditModal] = useToggleState(false)
+	const [isActionPopupOpen, toggleActionPopup] = useToggleState(false)
+	const [isDeleteModalOpen, toggleDeleteModal] = useToggleState(false)
 
-	function toggleModal(e: any) {
-		setIEditsModalOpen(!iEditsModalOpen)
+	const handleEditCLick = () => {
+		toggleEditModal()
+		toggleActionPopup()
 	}
+
+	const handleDeleteCLick = () => {
+		toggleDeleteModal()
+		toggleActionPopup()
+	}
+
 	return (
 		<div>
 			<OfficeThumbnailContainer>
@@ -26,7 +43,16 @@ const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 				<ContentContainer>
 					<div className="content-top">
 						<h3>{officeName}</h3>
-						<OptionsIcon onClick={() => deleteOffice(id)} />
+						<OptionsIcon onClick={toggleActionPopup} />
+						<ActionsContainer isOpen={isActionPopupOpen}>
+							<button onClick={handleEditCLick}>
+								Edit <EditIcon />
+							</button>
+							<button onClick={handleDeleteCLick}>
+								Delete
+								<DeleteIcon />
+							</button>
+						</ActionsContainer>
 					</div>
 					<h4>{officeAddr}</h4>
 					<div className="content-bottom">
@@ -35,7 +61,8 @@ const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 					</div>
 				</ContentContainer>
 			</OfficeThumbnailContainer>
-			<OfficeForm officeData={officeData} isOpen={iEditsModalOpen} toggle={toggleModal} />
+			<OfficeForm officeData={officeData} isOpen={isEditModalOpen} toggle={toggleEditModal} />
+			<DeleteModal isOpen={isDeleteModalOpen} toggle={toggleDeleteModal} officeData={officeData} />
 		</div>
 	)
 }

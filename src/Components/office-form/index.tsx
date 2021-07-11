@@ -34,7 +34,7 @@ const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle, officeData }) => {
 						required
 						name="officeName"
 						id="officeName"
-						placeholder="office Name"
+						placeholder="Office name"
 						type="text"
 						onChange={handleChange}
 						value={inputs.officeName}
@@ -43,7 +43,7 @@ const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle, officeData }) => {
 						required
 						name="officeEmail"
 						id="officeEmail"
-						placeholder="office Email"
+						placeholder="Office email"
 						type="email"
 						onChange={handleChange}
 						value={inputs.officeEmail}
@@ -52,7 +52,7 @@ const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle, officeData }) => {
 						required
 						name="officeTel"
 						id="officeTel"
-						placeholder="office Tel"
+						placeholder="Office tell"
 						type="tel"
 						onChange={handleChange}
 						value={inputs.officeTel}
