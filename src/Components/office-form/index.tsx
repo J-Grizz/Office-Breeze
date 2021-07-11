@@ -9,16 +9,17 @@ import { CirclePicker } from 'react-color'
 interface OfficeFormProps {
 	isOpen: boolean
 	toggle: any
+	officeData?: OfficeInterface
 }
 
-const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle }) => {
-	let initialValues: OfficeInterface = new Office()
-	const { addOffice } = useContext(OfficesContext)
+const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle, officeData }) => {
+	let initialValues: OfficeInterface = officeData || new Office()
+	const { addOffice, updateOffice } = useContext(OfficesContext)
 	const [inputs, handleChange, handleColorChange, reset] = useFormState(initialValues)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-		addOffice(inputs)
+		officeData ? updateOffice(initialValues.id, inputs) : addOffice(inputs)
 		reset(e)
 		toggle()
 	}
@@ -27,7 +28,7 @@ const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle }) => {
 		<div>
 			<StyledModal isOpen={isOpen} onBackgroundClick={toggle} onEscapeKeydown={toggle}>
 				<CloseIcon onClick={toggle} />
-				<h2>Add Office</h2>
+				<h2>{officeData ? 'Edit Office' : 'Add Office'}</h2>
 				<StyledForm onSubmit={handleSubmit}>
 					<input
 						required
