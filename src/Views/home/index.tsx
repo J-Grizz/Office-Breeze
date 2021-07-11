@@ -1,11 +1,11 @@
 import { FC, useContext } from 'react'
 import { HomeLayout } from './styles'
-import { HomeHeader, OfficeThumbnail } from 'Components'
+import { HomeHeader, OfficeThumbnail, LoadingSpinner } from 'Components'
 import { OfficesContext } from 'Context'
 import { OfficeInterface } from 'Typings/office'
 
 const Home: FC = () => {
-	const { officesData } = useContext(OfficesContext)
+	const { officesData, loading } = useContext(OfficesContext)
 
 	let offices = []
 	if (officesData) {
@@ -17,7 +17,7 @@ const Home: FC = () => {
 	return (
 		<HomeLayout>
 			<HomeHeader />
-			{offices}
+			{loading ? <LoadingSpinner /> : offices}
 		</HomeLayout>
 	)
 }

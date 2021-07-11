@@ -6,12 +6,16 @@ import { OfficeInterface } from 'Typings/office'
 
 export const OfficesContext = createContext<any>(null)
 
+// This pattern of putting the state logic in context providers feels sloppy, would like to look into refacoring using reducers
 export const OfficesProvider: FC = ({ children }) => {
 	const { user } = useContext(AuthContext)
 	let officesRef: any = null
+	// Need to check as user might still be loading
 	if (user) {
 		officesRef = firestore.collection(`users/${user.uid}/offices`)
 	}
+
+	// Useful hook from firebase-hooks to get collection data from firestore
 	const [officesData, loading] = useCollectionData(officesRef, { idField: 'id' })
 
 	const addOffice = (officesData: OfficeInterface) => {

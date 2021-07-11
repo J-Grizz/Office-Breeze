@@ -1,16 +1,15 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { OfficeForm } from 'Components'
 import { HeaderContainer, NewOfficeIcon, VertLine, SingOutIcon } from './styles'
 import { auth } from 'firebase.config'
+import { useToggleState } from 'Hooks'
 
+// TODO Should move this logic to reducer
 const signOut = () => auth.signOut()
 
 const Header: FC = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [isModalOpen, toggleModal] = useToggleState(false)
 
-	function toggleModal(e: any) {
-		setIsModalOpen(!isModalOpen)
-	}
 	return (
 		<div>
 			<HeaderContainer>

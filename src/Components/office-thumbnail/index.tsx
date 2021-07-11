@@ -12,6 +12,7 @@ import {
 import { OfficeInterface } from 'Typings/office'
 import { OfficeForm, DeleteModal } from 'Components'
 import { useToggleState } from 'Hooks'
+import { Link } from 'react-router-dom'
 
 interface OfficeThumbnailProps {
 	officeData: OfficeInterface
@@ -33,16 +34,22 @@ const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 		toggleActionPopup()
 	}
 
+	const staffMembers: [] = []
+
 	return (
 		<div>
 			<OfficeThumbnailContainer>
-				<UserCountContainer>
-					<PeopleIcon />
-					<h4>{`7/${officeMax}`}</h4>
-				</UserCountContainer>
+				<Link className="link-button" to={`/office/${id}`}>
+					<UserCountContainer>
+						<PeopleIcon />
+						<h4>{`${staffMembers.length}/${officeMax}`}</h4>
+					</UserCountContainer>
+				</Link>
 				<ContentContainer>
 					<div className="content-top">
-						<h3>{officeName}</h3>
+						<Link to={`/office/${id}`}>
+							<h3>{officeName}</h3>
+						</Link>
 						<OptionsIcon onClick={toggleActionPopup} />
 						<ActionsContainer isOpen={isActionPopupOpen}>
 							<button onClick={handleEditCLick}>

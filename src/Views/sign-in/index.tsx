@@ -5,11 +5,13 @@ import { AuthContext } from 'Context/auth.context'
 import { LoadingSpinner } from 'Components'
 import { SignInLayout, ParagraphBlock } from './styles'
 
+// TODO - Should move this logic to an auth reducer
 const signInWithGoogle = () => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
 
 const SignIn: FC = () => {
 	const { user, loading } = useContext(AuthContext)
 
+	// Only allow users to view sign in screen if they are logged out
 	if (loading) {
 		return <LoadingSpinner />
 	} else if (user) {
