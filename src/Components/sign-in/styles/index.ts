@@ -25,12 +25,12 @@ export const SignInLayout = styled.div`
 			font-size: 60px;
 		}
 		button {
-			background-color: transparent;
+			background-color: rgba(0, 0, 0, 0.1);
 			padding: 16px;
-			font-weight: bold;
+			font-weight: bolder;
 			border: 1px solid white;
 			box-shadow: none;
-			font-size: 20px;
+			font-size: 22px;
 			color: white;
 			width: 80%;
 			border-radius: 50px;
@@ -54,6 +54,7 @@ export const ParagraphBlock = styled.div`
 		p {
 			text-shadow: 0 2px 13px rgba(0, 0, 0, 0.81);
 			font-size: 20px;
+			font-weight: bold;
 			text-align: center;
 		}
 	`}

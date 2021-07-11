@@ -1,9 +1,10 @@
 import { FC, useContext } from 'react'
-import { StyledModal } from './styles'
+import { StyledModal, StyledForm, CloseIcon } from './styles'
 import { useFormState } from 'Hooks'
 import { OfficesContext } from 'Context'
 import { OfficeInterface } from 'Typings/office'
 import { Office } from 'Classes/office'
+import { CirclePicker } from 'react-color'
 
 interface OfficeFormProps {
 	isOpen: boolean
@@ -13,26 +14,69 @@ interface OfficeFormProps {
 const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle }) => {
 	let initialValues: OfficeInterface = new Office()
 	const { addOffice } = useContext(OfficesContext)
-	const [inputs, handleChange, reset] = useFormState(initialValues)
+	const [inputs, handleChange, handleColorChange, reset] = useFormState(initialValues)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
 		addOffice(inputs)
 		reset(e)
+		toggle()
 	}
 
 	return (
 		<div>
 			<StyledModal isOpen={isOpen} onBackgroundClick={toggle} onEscapeKeydown={toggle}>
-				<form onSubmit={handleSubmit}>
-					<input name="officeName" type="text" onChange={handleChange} value={inputs.officeName} />
-					<input name="officeEmail" type="email" onChange={handleChange} value={inputs.officeEmail} />
-					<input name="officeTel" type="tel" onChange={handleChange} value={inputs.officeTel} />
-					<input name="officeAddr" type="text" onChange={handleChange} value={inputs.officeAddr} />
-					<input name="officeMax" type="number" onChange={handleChange} value={inputs.officeMax} />
-					<input name="officeColor" type="input" onChange={handleChange} value={inputs.officeColor} />
+				<CloseIcon onClick={toggle} />
+				<h2>Add Office</h2>
+				<StyledForm onSubmit={handleSubmit}>
+					<input
+						required
+						name="officeName"
+						id="officeName"
+						placeholder="office Name"
+						type="text"
+						onChange={handleChange}
+						value={inputs.officeName}
+					/>
+					<input
+						required
+						name="officeEmail"
+						id="officeEmail"
+						placeholder="office Email"
+						type="email"
+						onChange={handleChange}
+						value={inputs.officeEmail}
+					/>
+					<input
+						required
+						name="officeTel"
+						id="officeTel"
+						placeholder="office Tel"
+						type="tel"
+						onChange={handleChange}
+						value={inputs.officeTel}
+					/>
+					<input
+						required
+						name="officeAddr"
+						id="officeAddr"
+						placeholder="Address"
+						type="text"
+						onChange={handleChange}
+						value={inputs.officeAddr}
+					/>
+					<input
+						required
+						name="officeMax"
+						id="officeMax"
+						placeholder="Max number of occupants"
+						type="number"
+						onChange={handleChange}
+						value={inputs.officeMax}
+					/>
+					<CirclePicker className="color-input" color={inputs.officeColor} onChange={handleColorChange} />
 					<button type="submit">Submit</button>
-				</form>
+				</StyledForm>
 			</StyledModal>
 		</div>
 	)

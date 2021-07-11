@@ -19,7 +19,7 @@ const SignIn: FC = () => {
 			<SignInLayout>
 				<div className="background-image" />
 				<div className="foreground" />
-				<h1>Welcome</h1>
+				<h1>Office Breeze</h1>
 				<ParagraphBlock>
 					<p>Your personal office manager</p>
 					<p>-</p>

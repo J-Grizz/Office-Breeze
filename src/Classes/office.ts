@@ -11,6 +11,6 @@ export class Office {
 		this.officeTel = ''
 		this.officeAddr = ''
 		this.officeMax = ''
-		this.officeColor = ''
+		this.officeColor = '#2196f4'
 	}
 }
