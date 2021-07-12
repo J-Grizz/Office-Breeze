@@ -1,4 +1,4 @@
-# Specno Assessment
+# Office Breeze
 
 ### General tech used:
 - React
