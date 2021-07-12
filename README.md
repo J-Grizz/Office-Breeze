@@ -16,7 +16,7 @@
 or
 `npm i`
 
-3. Setup firebase:
+3. Setup firebase: https://console.firebase.google.com/
 
 - Create new project
 - Setup auth by enabling 'Google' as  sign-in provider and allowing local host
