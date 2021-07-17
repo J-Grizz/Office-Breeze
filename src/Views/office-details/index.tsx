@@ -5,6 +5,7 @@ import { Office } from 'Classes/office'
 import { firestore } from 'firebase.config'
 import { AuthContext } from 'Context'
 import { useDocument } from 'react-firebase-hooks/firestore'
+import { StaffList } from 'Components'
 
 const OfficeDetails: FC = ({ match, history }: any) => {
 	const { user } = useContext(AuthContext)
@@ -27,6 +28,7 @@ const OfficeDetails: FC = ({ match, history }: any) => {
 				<p>Office Tell: {office.officeTel}</p>
 				<p>Max Capacity: {office.officeMax}</p>
 			</OfficeDetailsContainer>
+			<StaffList officeId={match.params.officeId} />
 		</OfficeLayout>
 	)
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { Office } from 'Classes/office'
-const useFormState = (initialVal: any) => {
-	const [inputs, setInputs] = useState(initialVal)
+const useFormState = (initialObj: any) => {
+	const [inputs, setInputs] = useState(initialObj)
 	const handleChange = (e: any) => {
 		setInputs((state: any) => ({ ...state, [e.target.name]: e.target.value }))
 	}
@@ -9,7 +8,7 @@ const useFormState = (initialVal: any) => {
 		setInputs((state: any) => ({ ...state, officeColor: color.hex }))
 	}
 	const reset = (e: any) => {
-		setInputs(new Office())
+		setInputs(initialObj)
 	}
 	return [inputs, handleChange, handleColorChange, reset]
 }
