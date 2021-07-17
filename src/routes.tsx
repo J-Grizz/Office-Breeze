@@ -17,7 +17,7 @@ const Routes: FC = () => {
 			<Switch>
 				<Route exact path="/sign-in" component={SignIn} />
 				<ProtectedRoute {...defaultProtectedRouteProps} exact path="/home" component={Home} />
-				<ProtectedRoute {...defaultProtectedRouteProps} exact path="/office/:id" component={OfficeDetails} />
+				<ProtectedRoute {...defaultProtectedRouteProps} exact path="/office/:officeId" component={OfficeDetails} />
 				<ProtectedRoute {...defaultProtectedRouteProps} path="*">
 					<Redirect to="/home" />
 				</ProtectedRoute>

@@ -18,17 +18,22 @@ export const OfficesProvider: FC = ({ children }) => {
 	// Useful hook from firebase-hooks to get collection data from firestore
 	const [officesData, loading] = useCollectionData(officesRef, { idField: 'id' })
 
+	// Create office
 	const addOffice = (officesData: OfficeInterface) => {
 		officesRef.add({
 			...officesData,
 			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 		})
 	}
+
+	// Update office
 	const updateOffice = (id: string, updatedOffice: OfficeInterface) =>
 		officesRef.doc(id).set(updatedOffice, { merge: true })
 
+	// Delete office
 	const deleteOffice = (id: string) => officesRef.doc(id).delete()
 
+	// Bundle office actions
 	const officeActions = {
 		addOffice: addOffice,
 		updateOffice: updateOffice,
@@ -36,6 +41,7 @@ export const OfficesProvider: FC = ({ children }) => {
 	}
 
 	return (
+		// Proivde office state to app
 		<OfficesContext.Provider value={{ officesData: officesData, loading: loading, ...officeActions }}>
 			{children}
 		</OfficesContext.Provider>

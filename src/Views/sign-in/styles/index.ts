@@ -38,7 +38,7 @@ export const SignInLayout = styled.div`
 		}
 		.foreground {
 			${sharedStyle}
-			backdrop-filter: blur(8px);
+			backdrop-filter: blur(4px);
 		}
 		.background-image {
 			${sharedStyle}
