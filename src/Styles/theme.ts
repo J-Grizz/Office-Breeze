@@ -3,7 +3,8 @@ const theme = {
 		black: '#282c34',
 		blue: '#a0e9fd',
 		lightBlue: '#caf3fe',
-		white: '#fefefe',
+		white: '#fafafa',
+		grey: '#efefef',
 	},
 	transition: '0.3s',
 }

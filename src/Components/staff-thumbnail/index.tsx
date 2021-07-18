@@ -1,47 +1,46 @@
 import { FC } from 'react'
-import { StaffThumbnailContainer, ActionsContainer, EditIcon, DeleteIcon } from './styles'
+import { StaffThumbnailContainer, PersonIcon } from './styles'
 import { StaffInterface } from 'Typings/staff'
 import { useToggleState } from 'Hooks'
+import { ActionsPopup, StaffForm, DeleteModal } from 'Components'
 
 interface StaffThumbnailProps {
 	staffData: StaffInterface
+	deleteStaff: any
+	updateStaff: any
 }
 
-const StaffThumbnail: FC<StaffThumbnailProps> = ({ staffData }) => {
-	const { id, firstName, lastName } = staffData
+const StaffThumbnail: FC<StaffThumbnailProps> = ({ staffData, updateStaff, deleteStaff }) => {
+	const { firstName, lastName, id } = staffData
 	const [isEditModalOpen, toggleEditModal] = useToggleState(false)
 	const [isActionPopupOpen, toggleActionPopup] = useToggleState(false)
 	const [isDeleteModalOpen, toggleDeleteModal] = useToggleState(false)
 
-	const handleEditCLick = () => {
-		toggleEditModal()
-		toggleActionPopup()
-	}
-
-	const handleDeleteCLick = () => {
-		toggleDeleteModal()
-		toggleActionPopup()
-	}
-
-	const staffMembers: [] = []
-
 	return (
-		<div>
+		<>
 			<StaffThumbnailContainer>
-				<div>
-					{firstName} {lastName}
+				<div className="content-left">
+					<PersonIcon />
+					<h3>
+						{firstName} {lastName}
+					</h3>
 				</div>
+				<ActionsPopup
+					toggleEditModal={toggleEditModal}
+					toggleDeleteModal={toggleDeleteModal}
+					isActionPopupOpen={isActionPopupOpen}
+					toggleActionPopup={toggleActionPopup}
+				/>
 			</StaffThumbnailContainer>
-			<ActionsContainer isOpen={isActionPopupOpen}>
-				<button onClick={handleEditCLick}>
-					Edit <EditIcon />
-				</button>
-				<button onClick={handleDeleteCLick}>
-					Delete
-					<DeleteIcon />
-				</button>
-			</ActionsContainer>
-		</div>
+			<StaffForm staffData={staffData} submitAction={updateStaff} isOpen={isEditModalOpen} toggle={toggleEditModal} />
+			<DeleteModal
+				isOpen={isDeleteModalOpen}
+				toggle={toggleDeleteModal}
+				deleteAction={deleteStaff}
+				entityId={id}
+				entityName={`${firstName} ${lastName}`}
+			/>
+		</>
 	)
 }
 

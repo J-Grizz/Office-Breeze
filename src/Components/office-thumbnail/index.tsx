@@ -1,18 +1,10 @@
-import { FC } from 'react'
-import {
-	OfficeThumbnailContainer,
-	UserCountContainer,
-	PeopleIcon,
-	ContentContainer,
-	OptionsIcon,
-	ActionsContainer,
-	DeleteIcon,
-	EditIcon,
-} from './styles'
+import { FC, useContext } from 'react'
+import { OfficeThumbnailContainer, UserCountContainer, PeopleIcon, ContentContainer } from './styles'
 import { OfficeInterface } from 'Typings/office'
-import { OfficeForm, DeleteModal } from 'Components'
+import { OfficeForm, DeleteModal, ActionsPopup } from 'Components'
 import { useToggleState } from 'Hooks'
 import { Link } from 'react-router-dom'
+import { OfficesContext } from 'Context'
 
 interface OfficeThumbnailProps {
 	officeData: OfficeInterface
@@ -20,19 +12,10 @@ interface OfficeThumbnailProps {
 
 const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 	const { officeMax, officeName, officeEmail, officeAddr, officeTel, id } = officeData
+	const { deleteOffice } = useContext(OfficesContext)
 	const [isEditModalOpen, toggleEditModal] = useToggleState(false)
 	const [isActionPopupOpen, toggleActionPopup] = useToggleState(false)
 	const [isDeleteModalOpen, toggleDeleteModal] = useToggleState(false)
-
-	const handleEditCLick = () => {
-		toggleEditModal()
-		toggleActionPopup()
-	}
-
-	const handleDeleteCLick = () => {
-		toggleDeleteModal()
-		toggleActionPopup()
-	}
 
 	const staffMembers: [] = []
 
@@ -50,16 +33,12 @@ const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 						<Link to={`/office/${id}`}>
 							<h3>{officeName}</h3>
 						</Link>
-						<OptionsIcon onClick={toggleActionPopup} />
-						<ActionsContainer isOpen={isActionPopupOpen}>
-							<button onClick={handleEditCLick}>
-								Edit <EditIcon />
-							</button>
-							<button onClick={handleDeleteCLick}>
-								Delete
-								<DeleteIcon />
-							</button>
-						</ActionsContainer>
+						<ActionsPopup
+							toggleEditModal={toggleEditModal}
+							toggleDeleteModal={toggleDeleteModal}
+							isActionPopupOpen={isActionPopupOpen}
+							toggleActionPopup={toggleActionPopup}
+						/>
 					</div>
 					<h4>{officeAddr}</h4>
 					<div className="content-bottom">
@@ -69,7 +48,13 @@ const OfficeThumbnail: FC<OfficeThumbnailProps> = ({ officeData }) => {
 				</ContentContainer>
 			</OfficeThumbnailContainer>
 			<OfficeForm officeData={officeData} isOpen={isEditModalOpen} toggle={toggleEditModal} />
-			<DeleteModal isOpen={isDeleteModalOpen} toggle={toggleDeleteModal} officeData={officeData} />
+			<DeleteModal
+				isOpen={isDeleteModalOpen}
+				toggle={toggleDeleteModal}
+				deleteAction={deleteOffice}
+				entityId={id}
+				entityName={officeName}
+			/>
 		</div>
 	)
 }

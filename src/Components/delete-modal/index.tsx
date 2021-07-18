@@ -1,19 +1,17 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { StyledModal, CloseIcon, ModalContent } from './styles'
-import { OfficesContext } from 'Context'
 
 interface DeleteModalProps {
 	isOpen: boolean
 	toggle: () => void
-	officeData: any
+	deleteAction: any
+	entityId: any
+	entityName: string
 }
 
-const DeleteModal: FC<DeleteModalProps> = ({ isOpen, toggle, officeData }) => {
-	const { deleteOffice } = useContext(OfficesContext)
-
+const DeleteModal: FC<DeleteModalProps> = ({ isOpen, toggle, deleteAction, entityId, entityName }) => {
 	const handleDelete = () => {
-		deleteOffice(officeData.id)
-		toggle()
+		deleteAction(entityId)
 	}
 
 	return (
@@ -25,7 +23,7 @@ const DeleteModal: FC<DeleteModalProps> = ({ isOpen, toggle, officeData }) => {
 					<h4>
 						Are you sure you want to <span>Remove</span>
 					</h4>
-					<h3>{officeData.officeName}</h3>
+					<h3>{entityName}</h3>
 					<button onClick={handleDelete}>Remove</button>
 				</ModalContent>
 			</StyledModal>

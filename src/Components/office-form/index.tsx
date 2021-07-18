@@ -15,7 +15,7 @@ interface OfficeFormProps {
 const OfficeForm: FC<OfficeFormProps> = ({ isOpen, toggle, officeData }) => {
 	let initialValues: OfficeInterface = officeData || new Office()
 	const { addOffice, updateOffice } = useContext(OfficesContext)
-	const [inputs, handleChange, handleColorChange, reset] = useFormState(initialValues)
+	const { inputs, handleChange, handleColorChange, reset } = useFormState(initialValues)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()

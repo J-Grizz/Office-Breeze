@@ -10,7 +10,7 @@ const useFormState = (initialObj: any) => {
 	const reset = (e: any) => {
 		setInputs(initialObj)
 	}
-	return [inputs, handleChange, handleColorChange, reset]
+	return { inputs, handleChange, handleColorChange, reset }
 }
 
 export default useFormState

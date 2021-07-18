@@ -14,7 +14,7 @@ interface StaffFormProps {
 const StaffForm: FC<StaffFormProps> = ({ isOpen, toggle, staffData, submitAction }) => {
 	let initialValues: StaffInterface | Staff = staffData || new Staff()
 
-	const [inputs, handleChange, handleColorChange, reset] = useFormState(initialValues)
+	const { inputs, handleChange, reset } = useFormState(initialValues)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()

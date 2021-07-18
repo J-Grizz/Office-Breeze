@@ -28,7 +28,7 @@ const OfficeDetails: FC = ({ match, history }: any) => {
 				<p>Office Tell: {office.officeTel}</p>
 				<p>Max Capacity: {office.officeMax}</p>
 			</OfficeDetailsContainer>
-			<StaffList officeId={match.params.officeId} />
+			<StaffList officeId={match.params.officeId} officeCapacity={office.officeMax} />
 		</OfficeLayout>
 	)
 }
