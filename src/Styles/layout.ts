@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-// import { device } from '.'
 
 const StyledLayout = styled.div`
 	${({ theme }) => css`

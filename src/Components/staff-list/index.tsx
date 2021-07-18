@@ -2,11 +2,11 @@ import { StaffForm, StaffThumbnail, LoadingSpinner } from 'Components'
 import { AuthContext } from 'Context'
 import firebase from 'firebase'
 import { firestore } from 'firebase.config'
-import { useToggleState } from 'Hooks'
+import { useToggleState, useInputState } from 'Hooks'
 import { FC, useContext } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { StaffInterface } from 'Typings/staff'
-import { StaffContainer, StaffHeader } from './styles'
+import { StaffContainer, StaffHeader, SearchContainer } from './styles'
 
 interface StaffListProps {
 	officeId: string
@@ -15,6 +15,7 @@ interface StaffListProps {
 
 const StaffList: FC<StaffListProps> = ({ officeId, officeCapacity }) => {
 	const [isModalOpen, toggleModal] = useToggleState(false)
+	const [searchTerm, updateSearchTerm] = useInputState('')
 
 	const { user } = useContext(AuthContext)
 	const staffRef: any = firestore.collection(`users/${user.uid}/offices/${officeId}/staff`)
@@ -35,9 +36,20 @@ const StaffList: FC<StaffListProps> = ({ officeId, officeCapacity }) => {
 	// Delete Staff
 	const deleteStaff = (id: string) => staffRef.doc(id).delete()
 
+	const filterStaff = (e?: any) => {
+		if (e) {
+			updateSearchTerm(e)
+		}
+
+		return staffData.filter((val: StaffInterface) => {
+			let reg = new RegExp(searchTerm, 'g')
+			return reg.test(val.firstName + ' ' + val.lastName)
+		})
+	}
+
 	let staff = []
 	if (staffData) {
-		staff = staffData.map((staffData: StaffInterface) => {
+		staff = filterStaff().map((staffData: StaffInterface) => {
 			return (
 				<StaffThumbnail
 					updateStaff={updateStaff}
@@ -49,11 +61,14 @@ const StaffList: FC<StaffListProps> = ({ officeId, officeCapacity }) => {
 		})
 	}
 
-	let atCapacity = staff.length >= officeCapacity
+	const atCapacity = staff.length >= officeCapacity
 
 	return (
 		<div>
 			<StaffContainer>
+				<SearchContainer>
+					<input value={searchTerm} onChange={filterStaff} type="text" placeholder="Search..." />
+				</SearchContainer>
 				<StaffHeader>
 					<h3>
 						Staff Members {staff.length}/{officeCapacity}

@@ -10,13 +10,15 @@ export const OfficesContext = createContext<any>(null)
 export const OfficesProvider: FC = ({ children }) => {
 	const { user } = useContext(AuthContext)
 	let officesRef: any = null
+	let officeQuery: any = null
 	// Need to check as user might still be loading
 	if (user) {
 		officesRef = firestore.collection(`users/${user.uid}/offices`)
+		officeQuery = officesRef.orderBy('createdAt', 'desc')
 	}
 
 	// Useful hook from firebase-hooks to get collection data from firestore
-	const [officesData, loading] = useCollectionData(officesRef, { idField: 'id' })
+	const [officesData, loading] = useCollectionData(officeQuery, { idField: 'id' })
 
 	// Create office
 	const addOffice = (officesData: OfficeInterface) => {
